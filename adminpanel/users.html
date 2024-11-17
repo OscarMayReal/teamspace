@@ -1,0 +1,329 @@
+<head>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
+        header {
+            height: 55px;
+            background-color: rgb(33, 145, 126);
+            width: 100vw;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        body {
+            margin: 0px;
+            background-color: rgb(239, 239, 239);
+        }
+
+        .headertext {
+            font-family: figtree;
+            color: rgb(255, 255, 255);
+            margin-left: 5px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .usersegment {
+            font-family: Figtree;
+            color: rgb(255, 255, 255);
+            margin-right: 20px;
+            margin-left: auto;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .navmenu-button {
+            height: 55px;
+            width: 55px;
+            color: white;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .navmenu-button:hover {
+            background-color: rgb(18, 100, 86);
+        }
+
+        .welcomesection {
+            width: 100%;
+            display: flex;
+        }
+
+        .welcomesection-inner {
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+        }
+
+        .welcomesection-text {
+            font-family: Figtree;
+            color: rgb(75, 75, 75);
+            margin-left: 5px;
+            font-weight: 600;
+            font-size: 25px;
+        }
+
+        .dialog-title {
+            font-family: Figtree;
+            color: rgb(75, 75, 75);
+            margin-left: 5px;
+            font-weight: 600;
+            font-size: 25px;
+            margin-left: 30px;
+            margin-top: 30px;
+        }
+        
+        .welcomesection-subtext {
+            font-family: Figtree;
+            color: rgb(104, 104, 104);
+            margin-left: 5px;
+            font-weight: 500;
+            font-size: 18px;
+            margin-top: 10px;
+            margin-bottom: 25px;
+        }
+
+        .apparea {
+            height: calc(100vh - 55px);
+            width: 100vw;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .appsidebar {
+            height: 100%;
+            min-width: 300px;
+            border-right: 1px solid #e4e4e7;
+            background-color: rgb(255, 255, 255);
+        }
+
+        .appsidebar-item {
+            width: 280px;
+            height: 55px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding-left: 20px;
+            font-family: Figtree;
+            color: rgb(72, 72, 72);
+            font-size: 16px;
+        }
+        .appsidebar-item:hover {
+            background-color: #5a5a5a2f;
+        }
+
+        .userlistbox {
+            width: 100%;
+            height: fit-content;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #e4e4e7;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-item {
+            width: 100%;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            border-bottom: 1px solid #e4e4e7;
+            color: rgb(104, 104, 104);
+        }
+        .user-item:hover {
+            background-color: rgba(52, 52, 52, 0.125);
+        }
+
+        .user-item-emailtext {
+            font-family: Figtree;
+            margin-left: 20px;
+            font-weight: 500;
+            font-size: 15px;
+            width: 100%
+        }
+
+        .newuseroverlay {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: rgba(37, 37, 37, 0.435);
+            width: 100vw;
+            height: 100vh;
+            display: none;
+        }
+
+        .newuserdialog {
+            width: 350px;
+            height: 100vh;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            background-color: white;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-family: Figtree;
+            margin-top: 5px;
+        }
+
+        input {
+            margin-bottom: 10px;
+            font-family: Figtree;
+            border-radius: 5px;
+            padding: 5px;
+            outline: none;
+            border: 1px solid #e4e4e7;
+            background-color: rgb(249, 249, 249);
+        }
+
+        .submitbutton {
+            margin-top: 20px;
+            font-family: Figtree;
+            border-radius: 5px;
+            height: 40px;
+            font-size: 15px;
+            color: white;
+            outline: none;
+            border: 1px solid #ffffff;
+            background-color: rgb(33, 145, 126);
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/dashboard">
+            <div class="navmenu-button">
+                <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-grip"><circle cx="12" cy="5" r="1"/><circle cx="19" cy="5" r="1"/><circle cx="5" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/><circle cx="12" cy="19" r="1"/><circle cx="19" cy="19" r="1"/><circle cx="5" cy="19" r="1"/></svg>
+            </div>
+        </a>
+        <div class="headertext">TeamSpace Admin Center</div>
+        <div class="usersegment" id="username-text">username</div>
+    </header>
+    <div class="apparea">
+        <div class="appsidebar">
+            <div class="appsidebar-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <div style="margin-left: 15px;">Users</div>
+            </div>
+            <!-- <div class="appsidebar-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-boxes"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg>
+                <div style="margin-left: 15px;">Groups</div>
+            </div> -->
+            <a href="/admin/channels">
+                <div class="appsidebar-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hash"><line x1="4" x2="20" y1="9" y2="9"/><line x1="4" x2="20" y1="15" y2="15"/><line x1="10" x2="8" y1="3" y2="21"/><line x1="16" x2="14" y1="3" y2="21"/></svg>
+                    <div style="margin-left: 15px;">Channels</div>
+                </div>
+            </a>
+            <!-- <div class="appsidebar-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-closed"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/><path d="M2 10h20"/></svg>
+                <div style="margin-left: 15px;">Files</div>
+            </div> -->
+        </div>
+        <div class="welcomesection">
+            <div class="welcomesection-inner">
+                <div class="welcomesection-text" id="welcomesection-text">
+                    TeamSpace Users
+                </div>
+                <div class="welcomesection-subtext">
+                    Manage the users on your TeamSpace
+                </div>
+                <div class="userlistbox" id="userlist">
+                    <div class="user-item">
+                        <div class="user-item-emailtext">Email</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="newuseroverlay" id="adduserdialog" onclick="$(`#adduserdialog`).hide()">
+        <div class="newuserdialog" onclick="event.stopPropagation()">
+            <div class="dialog-title">
+                Create New User
+            </div>
+            <form action="/register" method="POST" id="regform" style="display: flex; flex-direction: column; margin-left: 30px; margin-right: 30px; margin-top: 10px;">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" required />
+                
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" required />
+          
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required />
+          
+                <button type="submit" class="submitbutton">Register</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        fetch('/api/current-user', {
+            method: 'GET',
+            credentials: 'same-origin',
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("username-text").innerHTML = data.email
+        })
+        .catch(error => {
+            console.error('Error fetching current user:', error);
+        });
+
+        var loaduserslist = function() {
+            fetch('/api/all-users', {
+                method: 'GET',
+                credentials: 'same-origin',
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("userlist").innerHTML = ""
+                data.forEach(element => {
+                    document.getElementById("userlist").innerHTML = document.getElementById("userlist").innerHTML + `<div class="user-item">
+                        <div class="user-item-emailtext">` + element.name + `</div>
+                        <div class="user-item-emailtext">` + element.email + `</div>
+                        <svg onclick="deleteuser('` + element.id + `')" xmlns="http://www.w3.org/2000/svg" style="min-width: 20px; min-height: 20px; margin-right: 20px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                    </div>`
+                });
+                document.getElementById("userlist").innerHTML = document.getElementById("userlist").innerHTML + `<div class="user-item" onclick="$('#adduserdialog').show()">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="min-width: 20px; min-height: 20px; margin-left: 20px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+                    <div class="user-item-emailtext">Create User</div>
+                </div>`
+            })
+            .catch(error => {
+                console.error('Error fetching current user:', error);
+            });
+        }
+
+        loaduserslist()
+
+        document.getElementById("regform").addEventListener("onsubmit", function(event){
+            event.preventDefault()
+            $("#adduserdialog").hide()
+        });
+
+        var deleteuser = function(id) {
+            const requestOptions = {
+                method: "DELETE",
+                redirect: "follow"
+            };
+            if (confirm('do you want to delete user')) {
+                fetch("/api/delete-user/" + id, requestOptions)
+                    .then((response) => response.text())
+                    .then((result) => {
+                        console.log(result);
+                        loaduserslist()
+                    })
+                    .catch((error) => console.error(error));
+            }
+        }
+    </script>
+</body>

@@ -1,0 +1,22 @@
+{
+  "name": "teamspace",
+  "version": "1.0.0",
+  "description": "Teamspace is a great (self hostable) place for you and your team to do amazing things",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "oscar",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "express": "^4.21.1",
+    "express-session": "^1.18.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "prisma": "^5.22.0",
+    "sqlite3": "^5.1.7"
+  }
+}

@@ -1,0 +1,54 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db" // This creates a SQLite database file in the current folder
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Message {
+  id                Int       @id @default(autoincrement())
+  content           String
+  contenttype       String
+  sender            User      @relation("usersentmessages", fields: [userId], references: [id])
+  messagetype       String
+  channel           Channel   @relation("messagechannel", fields: [channelId], references: [id])
+  Messageref        Int?
+  messagerefMessage Message?  @relation("relatedmessages", fields: [Messageref], references: [id])
+  relatedto         Message[] @relation("relatedmessages")
+  channelId         Int
+  userId            Int
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  email        String    @unique
+  name         String?
+  descdata     String?
+  groups       Group[]   @relation("usergroup")
+  extrainfo    String?
+  role         String?
+  sentmessages Message[] @relation("usersentmessages")
+  password     String
+}
+
+model Group {
+  id        Int       @id @default(autoincrement())
+  users     User[]    @relation("usergroup")
+  channels  Channel[] @relation("groupchannel")
+  name      String
+  desc      String?
+  extradata String?
+}
+
+model Channel {
+  id        Int       @id @default(autoincrement())
+  group     Group[]   @relation("groupchannel")
+  name      String
+  desc      String?
+  icon      String?
+  type      String?
+  messages  Message[] @relation("messagechannel")
+  extradata String?
+}
