@@ -105,7 +105,7 @@ app.post('/api/create-channel', async (req, res) => {
           desc: desc,
         },
       });
-      res.status(201).redirect('/admin/channels.html');
+      res.status(201).redirect('/admin/channels');
     } catch {
   
     }
@@ -330,7 +330,7 @@ app.delete('/api/delete-user/:id', async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    await prisma.channel.delete({
+    await prisma.user.delete({
       where: { id: parseInt(id) },
     });
 

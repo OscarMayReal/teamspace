@@ -249,7 +249,7 @@
     <div class="newuseroverlay" id="adduserdialog" onclick="$(`#adduserdialog`).hide()">
         <div class="newuserdialog" onclick="event.stopPropagation()">
             <div class="dialog-title">
-                Create New User
+                Create New Channel
             </div>
             <form action="/api/create-channel" method="POST" id="regform" style="display: flex; flex-direction: column; margin-left: 30px; margin-right: 30px; margin-top: 10px;">
                 <label for="name">Name:</label>
@@ -258,7 +258,7 @@
                 <label for="desc">description:</label>
                 <input type="text" name="desc" id="desc" required />
           
-                <button type="submit" class="submitbutton">Register</button>
+                <button type="submit" class="submitbutton">Create Channel</button>
             </form>
         </div>
     </div>
@@ -291,8 +291,8 @@
                     </div>`
                 });
                 document.getElementById("userlist").innerHTML = document.getElementById("userlist").innerHTML + `<div class="user-item" onclick="$('#adduserdialog').show()">
-                    <svg xmlns="http://www.w3.org/2000/svg" style="min-width: 20px; min-height: 20px; margin-left: 20px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
-                    <div class="user-item-emailtext">Create User</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" style="min-width: 20px; min-height: 20px; margin-left: 20px" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hash"><line x1="4" x2="20" y1="9" y2="9"/><line x1="4" x2="20" y1="15" y2="15"/><line x1="10" x2="8" y1="3" y2="21"/><line x1="16" x2="14" y1="3" y2="21"/></svg>
+                    <div class="user-item-emailtext">Create Channel</div>
                 </div>`
             })
             .catch(error => {
