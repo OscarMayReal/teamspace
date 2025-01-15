@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const { PrismaClient } = require('@prisma/client');
 const LocalStrategy = require('passport-local').Strategy;
+const jwt = require('jsonwebtoken');
 
 const prisma = new PrismaClient();
 const app = express();
@@ -17,8 +18,61 @@ app.use(session({
   saveUninitialized: false,
 }));
 
+const passportJWT = require('passport-jwt');
+const { ExtractJwt, Strategy: JwtStrategy } = passportJWT;
+
 app.use(passport.initialize());
+
+const opts = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: 'teamspace_secrett', // Replace with your secret
+};
+
+passport.use(new LocalStrategy(
+  async (email, password, done) => {
+    try {
+      const user = await prisma.user.findUnique({ where: { email } });
+      if (!user) return done(null, false, { message: 'User not found' });
+
+      const isValid = await bcrypt.compare(password, user.password);
+      if (!isValid) return done(null, false, { message: 'Incorrect password' });
+
+      return done(null, user); // Successful authentication
+    } catch (err) {
+      return done(err);
+    }
+  }
+));
 app.use(passport.session());
+
+function combinedAuth(req, res, next) {
+  if (req.isAuthenticated()) {
+    console.log('Authenticated via session');
+    return next(); // Proceed if session is valid
+  }
+
+  // Check JWT token if no session
+  passport.authenticate('jwt', { session: false }, (err, user) => {
+    if (err || !user) {
+      console.log('Unauthorized via JWT');
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+    req.user = user; // Attach user to request
+    next(); // Proceed if JWT is valid
+  })(req, res, next);
+}
+
+
+app.post('/api/login', (req, res, next) => {
+  passport.authenticate('local', { session: false }, (err, user, info) => {
+    if (err || !user) {
+      return res.status(400).json({ message: info ? info.message : 'Login failed', user });
+    }
+    const token = jwt.sign(user, 'teamspace_secrett', { expiresIn: '1h' });
+    // console.log(token);
+    return res.json({ user, token });
+  })(req, res, next);
+});
 
 passport.use(new LocalStrategy(
   { usernameField: 'email' },
@@ -58,6 +112,8 @@ passport.deserializeUser(async (id, done) => {
     done(error);
   }
 });
+
+app.use("/public", express.static('public'));
 
 app.post('/register', async (req, res) => {
   const { email, password, name } = req.body;
@@ -124,6 +180,21 @@ app.get('/dashboard', (req, res) => {
     return res.status(401).redirect('/login');
   }
   res.sendFile(__dirname + "/dashboard/index.html");
+});
+
+app.get('/userpanel', (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).redirect('/login');
+  }
+  res.sendFile(__dirname + "/userpanel/index.html");
+});
+
+app.get('/', (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).redirect('/login');
+  } else {
+    return res.status(200).redirect('/dashboard');
+  }
 });
 
 app.get('/dashboard/channel', (req, res) => {
@@ -208,28 +279,16 @@ app.get('/logout', (req, res) => {
   });
 });
 
-app.get('/api/current-user', (req, res) => {
-  if (req.isAuthenticated()) {
-    return res.json(req.user);
-  } else {
-    return res.status(401).json({ error: 'Not authenticated' });
-  }
+app.get('/api/current-user', combinedAuth, (req, res) => {
+  return res.json(req.user);
 });
 
-app.get('/api/all-users', async (req, res) => {
-  if (req.isAuthenticated()) {
-    return res.json(await prisma.user.findMany());
-  } else {
-    return res.status(401).json({ error: 'Not authenticated' });
-  }
+app.get('/api/all-users', combinedAuth, async (req, res) => {
+  return res.json(await prisma.user.findMany());
 });
 
-app.get('/api/all-channels', async (req, res) => {
-  if (req.isAuthenticated()) {
-    return res.json(await prisma.channel.findMany());
-  } else {
-    return res.status(401).json({ error: 'Not authenticated' });
-  }
+app.get('/api/all-channels', combinedAuth, async (req, res) => {
+  return res.json(await prisma.channel.findMany());
 });
 
 app.get('/api/all-messages/:channel', async (req, res) => {
@@ -307,7 +366,65 @@ app.post('/api/send-message/:channel', async (req, res) => {
   }
 });
 
+app.post('/api/update-user/:id/email/:email', async (req, res) => {
+  const { id } = req.params;
+  const requestingUserId = req.user.id;
 
+  try {
+    const requestingUser = await prisma.user.findUnique({
+      where: { id: requestingUserId },
+    });
+
+    if (!requestingUser || requestingUser.role !== 'admin' || requestingUser.id !== parseInt(id)) {
+      return res.status(403).json({ error: 'Unauthorized: Only admins can delete users' });
+    }
+
+    const userToUpdate = await prisma.user.update({
+      where: { id: parseInt(id) },
+      data: {
+        email: req.params.email,
+      },
+    });
+
+    if (!userToUpdate) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'User Edited successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error Editing User', details: error.message });
+  }
+});
+
+app.post('/api/update-user/:id/name/:name', async (req, res) => {
+  const { id } = req.params;
+  const requestingUserId = req.user.id;
+
+  try {
+    const requestingUser = await prisma.user.findUnique({
+      where: { id: requestingUserId },
+    });
+
+    if (!requestingUser || requestingUser.role !== 'admin' || requestingUser.id !== parseInt(id)) {
+      return res.status(403).json({ error: 'Unauthorized: Only admins can delete users' });
+    }
+
+    const userToUpdate = await prisma.user.update({
+      where: { id: parseInt(id) },
+      data: {
+        name: req.params.name,
+      },
+    });
+
+    if (!userToUpdate) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'User Edited successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error Editing User', details: error.message });
+  }
+});
 
 app.delete('/api/delete-user/:id', async (req, res) => {
   const { id } = req.params;
@@ -338,6 +455,23 @@ app.delete('/api/delete-user/:id', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Error deleting channel', details: error.message });
   }
+});
+
+app.post('/changepassword', function (req, res) {
+  User.findByUsername(req.body.username, (err, user) => {
+      if (err) {
+          res.send(err);
+      } else {
+          user.changePassword(req.body.oldpassword, 
+          req.body.newpassword, function (err) {
+              if (err) {
+                  res.send(err);
+              } else {
+                  res.send('successfully change password')
+              }
+          });
+      }
+  });
 });
 
 

@@ -1,4 +1,5 @@
 <head>
+    <script src="/public/components.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
@@ -201,13 +202,14 @@
 </head>
 <body>
     <header>
-        <a href="/dashboard">
-            <div class="navmenu-button">
+        <!-- <a href="/dashboard"> -->
+            <div class="navmenu-button" onclick="document.getElementById('navmenuholder').innerHTML = '<global-nav-menu></global-nav-menu>'">
                 <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-grip"><circle cx="12" cy="5" r="1"/><circle cx="19" cy="5" r="1"/><circle cx="5" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/><circle cx="12" cy="19" r="1"/><circle cx="19" cy="19" r="1"/><circle cx="5" cy="19" r="1"/></svg>
             </div>
-        </a>
-        <div class="headertext">TeamSpace Admin Center</div>
+        <!-- </a> -->
+        <div class="headertext" id="pagetitle">TeamSpace Admin - Users</div>
         <div class="usersegment" id="username-text">username</div>
+        <div id="navmenuholder"></div>
     </header>
     <div class="apparea">
         <div class="appsidebar">
