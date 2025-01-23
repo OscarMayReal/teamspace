@@ -1,272 +1,43 @@
-<head>
-    <script src="/public/components.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
-
-        header {
-            height: 55px;
-            background-color: rgb(33, 145, 126);
-            width: 100vw;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-
-        body {
-            margin: 0px;
-            background-color: rgb(239, 239, 239);
-        }
-
-        .headertext {
-            font-family: figtree;
-            color: rgb(255, 255, 255);
-            margin-left: 5px;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .usersegment {
-            font-family: Figtree;
-            color: rgb(255, 255, 255);
-            margin-right: 20px;
-            margin-left: auto;
-            font-weight: 500;
-            font-size: 16px;
-        }
-
-        .navmenu-button {
-            height: 55px;
-            width: 55px;
-            color: white;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-        .navmenu-button:hover {
-            background-color: rgb(18, 100, 86);
-        }
-
-        .welcomesection {
-            width: 100%;
-            display: flex;
-        }
-
-        .welcomesection-inner {
-            width: 70%;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 50px;
-        }
-
-        .welcomesection-text {
-            font-family: Figtree;
-            color: rgb(75, 75, 75);
-            margin-left: 5px;
-            font-weight: 600;
-            font-size: 25px;
-        }
-
-        .dialog-title {
-            font-family: Figtree;
-            color: rgb(75, 75, 75);
-            margin-left: 5px;
-            font-weight: 600;
-            font-size: 25px;
-            margin-left: 30px;
-            margin-top: 30px;
-        }
-        
-        .welcomesection-subtext {
-            font-family: Figtree;
-            color: rgb(104, 104, 104);
-            margin-left: 5px;
-            font-weight: 500;
-            font-size: 18px;
-            margin-top: 10px;
-            margin-bottom: 25px;
-        }
-
-        .apparea {
-            height: calc(100vh - 55px);
-            width: 100vw;
-            display: flex;
-            flex-direction: row;
-        }
-
-        .appsidebar {
-            height: 100%;
-            min-width: 300px;
-            border-right: 1px solid #e4e4e7;
-            background-color: rgb(255, 255, 255);
-        }
-
-        .appsidebar-item {
-            width: 280px;
-            height: 55px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            padding-left: 20px;
-            font-family: Figtree;
-            color: rgb(72, 72, 72);
-            font-size: 16px;
-        }
-        .appsidebar-item:hover {
-            background-color: #5a5a5a2f;
-        }
-
-        .userlistbox {
-            width: 100%;
-            height: fit-content;
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 2px solid #e4e4e7;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .user-item {
-            width: 100%;
-            height: 55px;
-            display: flex;
-            align-items: center;
-            flex-direction: row;
-            border-bottom: 1px solid #e4e4e7;
-            color: rgb(104, 104, 104);
-        }
-        .user-item:hover {
-            background-color: rgba(52, 52, 52, 0.125);
-        }
-
-        .user-item-emailtext {
-            font-family: Figtree;
-            margin-left: 20px;
-            font-weight: 500;
-            font-size: 15px;
-            width: 100%
-        }
-
-        .newuseroverlay {
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            background-color: rgba(37, 37, 37, 0.435);
-            width: 100vw;
-            height: 100vh;
-            display: none;
-        }
-
-        .newuserdialog {
-            width: 350px;
-            height: 100vh;
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            background-color: white;
-        }
-
-        label {
-            margin-bottom: 5px;
-            font-family: Figtree;
-            margin-top: 5px;
-        }
-
-        input {
-            margin-bottom: 10px;
-            font-family: Figtree;
-            border-radius: 5px;
-            padding: 5px;
-            outline: none;
-            border: 1px solid #e4e4e7;
-            background-color: rgb(249, 249, 249);
-        }
-
-        .submitbutton {
-            margin-top: 20px;
-            font-family: Figtree;
-            border-radius: 5px;
-            height: 40px;
-            font-size: 15px;
-            color: white;
-            outline: none;
-            border: 1px solid #ffffff;
-            background-color: rgb(33, 145, 126);
-        }
-
-        a {
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <!-- <a href="/dashboard"> -->
-            <div class="navmenu-button" onclick="document.getElementById('navmenuholder').innerHTML = '<global-nav-menu></global-nav-menu>'">
-                <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-grip"><circle cx="12" cy="5" r="1"/><circle cx="19" cy="5" r="1"/><circle cx="5" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/><circle cx="12" cy="19" r="1"/><circle cx="19" cy="19" r="1"/><circle cx="5" cy="19" r="1"/></svg>
-            </div>
-        <!-- </a> -->
-        <div class="headertext" id="pagetitle">Your Account</div>
-        <div class="usersegment" id="username-text">username</div>
-        <div id="navmenuholder"></div>
-    </header>
-    <div class="welcomesection">
-        <div class="welcomesection-inner">
-            <div class="welcomesection-text" id="welcomesection-text">
-                Welcome Back
-            </div>
-            <div class="welcomesection-subtext">
-                Manage your account on this TeamSpace here. Click an item to change.
-            </div>
-            <div class="userlistbox" id="userlist">
-                <div class="user-item" onclick="updatename(prompt('New Name'))">
-                    <div class="user-item-emailtext">Name</div>
-                    <div class="user-item-emailtext" id="namecontainer">[name]</div>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="userpanel.css">
+        <script src="/public/components.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    </head>
+    
+    <body>
+        <header>
+            <!-- <a href="/dashboard"> -->
+                <div class="navmenu-button" onclick="document.getElementById('navmenuholder').innerHTML = '<global-nav-menu></global-nav-menu>'">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-grip"><circle cx="12" cy="5" r="1"/><circle cx="19" cy="5" r="1"/><circle cx="5" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/><circle cx="12" cy="19" r="1"/><circle cx="19" cy="19" r="1"/><circle cx="5" cy="19" r="1"/></svg>
                 </div>
-                <div class="user-item" onclick="updateemail(prompt('New Email'))">
-                    <div class="user-item-emailtext">Email</div>
-                    <div class="user-item-emailtext" id="emailcontainer">[email]</div>
+            <!-- </a> -->
+            <div class="headertext" id="pagetitle">Your Account</div>
+            <div class="usersegment" id="username-text">username</div>
+            <div id="navmenuholder"></div>
+        </header>
+    
+        <div class="welcomesection">
+            <div class="welcomesection-inner">
+                <div class="welcomesection-text" id="welcomesection-text">
+                    Welcome Back
+                </div>
+                <div class="welcomesection-subtext">
+                    Manage your account on this TeamSpace here. Click an item to change.
+                </div>
+                <div class="userlistbox" id="userlist">
+                    <div class="user-item" onclick="updatename(prompt('New Name'))">
+                        <div class="user-item-emailtext">Name</div>
+                        <div class="user-item-emailtext" id="namecontainer">[name]</div>
+                    </div>
+                    <div class="user-item" onclick="updateemail(prompt('New Email'))">
+                        <div class="user-item-emailtext">Email</div>
+                        <div class="user-item-emailtext" id="emailcontainer">[email]</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-        fetch('/api/current-user', {
-            method: 'GET',
-            credentials: 'same-origin',
-        })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById("username-text").innerHTML = data.email
-            document.getElementById("welcomesection-text").innerHTML = "Welcome back, " + data.name
-            document.getElementById("emailcontainer").innerHTML = data.email
-            document.getElementById("namecontainer").innerHTML = data.name
-            user = data
-        })
-        .catch(error => {
-            console.error('Error fetching current user:', error);
-        });
-
-
-        var updatename = function(newname) {
-            fetch("/api/update-user/" + user.id + "/name/" + newname, {
-                method: 'POST',
-                credentials: 'same-origin',
-            })
-            .then(() => {
-                location.reload()
-            })
-        }
-
-        var updateemail = function(newemail) {
-            fetch("/api/update-user/" + user.id + "/email/" + newemail, {
-                method: 'POST',
-                credentials: 'same-origin',
-            })
-            .then(() => {
-                location.reload()
-            })
-        }
-    </script>
-</body>
+        <script src="userpanel.js"></script>
+    </body>
+</html>
