@@ -1,212 +1,42 @@
-<head>
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="/public/components.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        a {
-            text-decoration: none;
-        }
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="/public/components.js"></script>
+        <link rel="stylesheet" href="channel.css">
+    </head>
 
-        header {
-            height: 55px;
-            background-color: rgb(33, 145, 126);
-            width: 100vw;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-
-        body {
-            margin: 0px;
-            background-color: rgb(239, 239, 239);
-        }
-
-        .headertext {
-            font-family: figtree;
-            color: rgb(255, 255, 255);
-            margin-left: 5px;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .usersegment {
-            font-family: Figtree;
-            color: rgb(255, 255, 255);
-            margin-right: 20px;
-            margin-left: auto;
-            font-weight: 500;
-            font-size: 16px;
-        }
-
-        .navmenu-button {
-            height: 55px;
-            width: 55px;
-            color: white;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-        .navmenu-button:hover {
-            background-color: rgb(18, 100, 86);
-        }
-
-        .welcomesection {
-            width: 100vw;
-            display: flex;
-        }
-
-        .welcomesection-inner {
-            width: 70%;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 50px;
-        }
-
-        .welcomesection-text {
-            font-family: Figtree;
-            color: rgb(75, 75, 75);
-            margin-left: 5px;
-            font-weight: 600;
-            font-size: 25px;
-        }
-
-        .userlistbox {
-            width: 100%;
-            height: fit-content;
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 2px solid #e4e4e7;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .user-item {
-            width: 100%;
-            height: 55px;
-            display: flex;
-            align-items: center;
-            flex-direction: row;
-            border-bottom: 1px solid #e4e4e7;
-            color: rgb(104, 104, 104);
-        }
-        .user-item:hover {
-            background-color: rgba(52, 52, 52, 0.125);
-        }
-        .nobghover:hover {
-            background-color: rgba(52, 52, 52, 0);
-        }
-
-        .user-item-emailtext {
-            font-family: Figtree;
-            margin-left: 20px;
-            font-weight: 500;
-            font-size: 15px;
-            width: 100%
-        }
-
-        .welcomesection-subtext {
-            font-family: Figtree;
-            color: rgb(104, 104, 104);
-            margin-left: 5px;
-            font-weight: 500;
-            font-size: 18px;
-            margin-top: 10px;
-            margin-bottom: 25px;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <!-- <a href="/dashboard"> -->
-            <div class="navmenu-button" onclick="document.getElementById('navmenuholder').innerHTML = '<global-nav-menu></global-nav-menu>'">
-                <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-grip"><circle cx="12" cy="5" r="1"/><circle cx="19" cy="5" r="1"/><circle cx="5" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/><circle cx="12" cy="19" r="1"/><circle cx="19" cy="19" r="1"/><circle cx="5" cy="19" r="1"/></svg>
-            </div>
-        <!-- </a> -->
-        <div class="headertext" id="pagetitle">TeamSpace Channel - </div>
-        <div class="usersegment" id="username-text">username</div>
-        <div id="navmenuholder"></div>
-    </header>
-    <div class="welcomesection">
-        <div class="welcomesection-inner">
-            <div class="welcomesection-text" id="welcomesection-text">
-                Welcome Back
-            </div>
-            <div class="welcomesection-subtext" id="welcomesection-subtext">
-                below is a list of channels you have access to
-            </div>
-            <div class="userlistbox" id="userlist">
-                <div class="user-item">
-                    <div class="user-item-emailtext">Email</div>
+    <body>
+        <header>
+            <!-- <a href="/dashboard"> -->
+                <div class="navmenu-button" onclick="document.getElementById('navmenuholder').innerHTML = '<global-nav-menu></global-nav-menu>'">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-left: auto; margin-right: auto;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-grip"><circle cx="12" cy="5" r="1"/><circle cx="19" cy="5" r="1"/><circle cx="5" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/><circle cx="12" cy="19" r="1"/><circle cx="19" cy="19" r="1"/><circle cx="5" cy="19" r="1"/></svg>
+                </div>
+            <!-- </a> -->
+            <div class="headertext" id="pagetitle">TeamSpace Channel - </div>
+            <div class="usersegment" id="username-text">username</div>
+            <div id="navmenuholder"></div>
+        </header>
+        
+        <div class="welcomesection">
+            <div class="welcomesection-inner">
+                <div class="welcomesection-text" id="welcomesection-text">
+                    Welcome Back
+                </div>
+                <div class="welcomesection-subtext" id="welcomesection-subtext">
+                    below is a list of channels you have access to
+                </div>
+                <div class="userlistbox" id="userlist">
+                    <div class="user-item">
+                        <div class="user-item-emailtext">Email</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-        fetch('/api/current-user', {
-            method: 'GET',
-            credentials: 'same-origin',
-        })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById("username-text").innerHTML = data.email
-        })
-        .catch(error => {
-            console.error('Error fetching current user:', error);
-        });
 
-        const searchParams = new URLSearchParams(window.location.search);
-
-        var channelid = searchParams.get("id")
-
-        document.getElementById("userlist").innerHTML = `<div class="user-item nobghover" style="width: 100% !important">
-                    <form id="sendmsg" action="/api/send-message/` + channelid + `" method="POST" id="regform" style="display: flex; flex-direction: row; width: 100%; margin-bottom: 20px; margin-top: 20px; margin-left: 20px; margin-right: 20px;">
-                        <input type="text" name="content" id="content" required style="border: 0px solid white; background-color: none; width: 100%; margin-left: 20px; outline: none;" />
-                        <button type="submit" class="submitbutton">Send</button>
-                    </form>
-                </div>
-                <div id="msglist"></div>`
-
-        var loadmessagelist = function() {
-            fetch('/api/all-messages/' + channelid, {
-                method: 'GET',
-                credentials: 'same-origin',
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("msglist").innerHTML = ''
-                data.forEach(element => {
-                    console.log(element)
-                    document.getElementById("msglist").innerHTML = `<div class="user-item">
-                        <div class="user-item-emailtext" style="text-wrap: nowrap; width: fit-content; margin-right: 15px; color: rgb(18, 100, 86);">` + element.sender.name + `</div>
-                        <div class="user-item-emailtext">` + element.content + `</div>
-                    </div>` + document.getElementById("msglist").innerHTML
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching current user:', error);
-            });
-        }
-
-        loadmessagelist()
-
-        setInterval(() => {
-            loadmessagelist()
-        }, 1000);
-
-        fetch('/api/get-info/' + channelid, {
-            method: 'GET',
-            credentials: 'same-origin',
-        })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById("pagetitle").innerHTML = "TeamSpace - " + data.name
-            document.getElementById("welcomesection-text").innerHTML = "#" + data.name
-            document.getElementById("welcomesection-subtext").innerHTML = data.desc
-        })
-        .catch(error => {
-            console.error('Error fetching current user:', error);
-        });
-    </script>
-</body>
+        <script src="channel.js"></script>
+    </body>
+</html>
