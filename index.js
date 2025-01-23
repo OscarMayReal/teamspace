@@ -259,17 +259,7 @@ app.get('/admin/channels', (req, res) => {
 // });
 
 app.get('/login', (req, res) => {
-  res.send(`
-    <form action="/login" method="POST">
-      <label for="email">Email:</label>
-      <input type="email" name="email" id="email" required />
-
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password" required />
-
-      <button type="submit">Login</button>
-    </form>
-  `);
+  res.sendFile(__dirname + "/login.html");
 });
 
 app.get('/logout', (req, res) => {
