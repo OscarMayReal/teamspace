@@ -1,9 +1,26 @@
-<form action="/login" method="POST">
-    <label for="email">Email:</label>
-    <input type="email" name="email" id="email" required />
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required />
+        <link rel="stylesheet" href="login.css">
+    </head>
 
-    <button type="submit">Login</button>
-</form>
+    <body>
+        <!-- Login Form -->
+        <form action="/login" method="POST">
+            
+            <!-- Email -->
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required />
+        
+            <!-- Password -->
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required />
+            
+            <!-- Login -->
+            <button type="submit">Login</button>
+        </form>        
+    </body>
+</html>
